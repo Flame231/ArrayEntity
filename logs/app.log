@@ -1,0 +1,24 @@
+2026-10-29 11:36:37.178 [main] INFO  org.example.arrayentity.App - readed lines: 4, incorrect lines: 0
+2026-10-29 11:38:04.547 [main] INFO  org.example.arrayentity.App - readed lines: 4, incorrect lines: 0
+2026-10-29 11:42:10.323 [main] INFO  org.example.arrayentity.App - read lines: 4
+2026-10-29 15:51:32.850 [main] INFO  org.example.arrayentity.App - read lines: 4
+2026-10-29 15:51:32.869 [main] INFO  org.example.arrayentity.App - parsed lines: 2
+2026-10-29 16:01:21.873 [main] WARN  org.example.arrayentity.App - filepath data/data.txt is incorrect or empty!
+java.nio.file.NoSuchFileException: data\data.txt
+	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:85) ~[?:?]
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103) ~[?:?]
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108) ~[?:?]
+	at java.base/sun.nio.fs.WindowsFileSystemProvider.newByteChannel(WindowsFileSystemProvider.java:231) ~[?:?]
+	at java.base/java.nio.file.Files.newByteChannel(Files.java:357) ~[?:?]
+	at java.base/java.nio.file.Files.newByteChannel(Files.java:399) ~[?:?]
+	at java.base/java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:371) ~[?:?]
+	at java.base/java.nio.file.Files.newInputStream(Files.java:154) ~[?:?]
+	at java.base/java.nio.file.Files.newBufferedReader(Files.java:2645) ~[?:?]
+	at java.base/java.nio.file.Files.readAllLines(Files.java:3085) ~[?:?]
+	at org.example.arrayentity.reader.impl.FileReaderImpl.read(FileReaderImpl.java:23) ~[classes/:?]
+	at org.example.arrayentity.App.main(App.java:44) [classes/:?]
+2026-10-29 16:01:34.947 [main] WARN  org.example.arrayentity.App - filepath data/data.txt is incorrect or empty!
+2026-10-29 16:02:55.795 [main] INFO  org.example.arrayentity.App - read lines: 4
+2026-10-29 16:02:55.808 [main] WARN  org.example.arrayentity.App - Skipping line 2: Data string is invalid!
+2026-10-29 16:02:55.811 [main] WARN  org.example.arrayentity.App - Skipping line 4: Data string is invalid!
+2026-10-29 16:02:55.811 [main] INFO  org.example.arrayentity.App - parsed lines: 2

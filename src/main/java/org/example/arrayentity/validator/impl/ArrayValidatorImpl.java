@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class ArrayValidatorImpl implements ArrayValidator {
 
-    private static final String DELIMITED_NUMBERS_PATTERN = "^([;,\\s-]?\\d+[;,\\s-]?)+$";
+    private static final String DELIMITED_NUMBERS_PATTERN = "^-?\\d{1,9}([;,\\s-]+-?\\d{1,9})*$";
     private static final String DASH_SEQUENCE_PATTERN = "[\u2013\u2014]+";
     private static final Pattern pattern = Pattern.compile(DELIMITED_NUMBERS_PATTERN);
 
@@ -16,11 +16,8 @@ public class ArrayValidatorImpl implements ArrayValidator {
         if (data == null || data.isBlank()) {
             return false;
         }
-        data = data.replaceAll(DASH_SEQUENCE_PATTERN, "-");
+        data = data.replaceAll(DASH_SEQUENCE_PATTERN, "-").trim();
         Matcher matcher = pattern.matcher(data);
-        if (!matcher.matches()) {
-            return false;
-        }
-        return true;
+        return matcher.matches();
     }
 }

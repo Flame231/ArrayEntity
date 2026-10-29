@@ -13,8 +13,7 @@ public class AverageValueServiceImpl implements AverageValueService {
 
     @Override
     public OptionalDouble calculateAverageValue(IntArray array) {
-        OptionalInt sum = arraySumService.calculateSum(array);
-        double doubleSum = (double) arraySumService.calculateSum(array).getAsInt();
+        double doubleSum = (double) arraySumService.calculateSum(array).getAsLong();
         return OptionalDouble.of(doubleSum / array.getSize());
     }
 }

@@ -2,8 +2,8 @@ package org.example.arrayentity.service;
 
 import org.example.arrayentity.entity.IntArray;
 
-import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 public interface ArraySumService {
-    OptionalInt calculateSum(IntArray intArray);
+    OptionalLong calculateSum(IntArray intArray);
 }

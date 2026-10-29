@@ -1,11 +1,15 @@
 package org.example.arrayentity.service.impl;
 
 import org.example.arrayentity.entity.IntArray;
-import org.example.arrayentity.service.SortArray;
+import org.example.arrayentity.exception.InvalidArrayException;
+import org.example.arrayentity.service.SortArrayService;
 
-public class SortArrayImpl implements SortArray {
+public class SortArrayServiceImpl implements SortArrayService {
     @Override
-    public void bubleSort(IntArray intArray) {
+    public void bubbleSort(IntArray intArray) {
+        if (intArray == null || intArray.getSize() == 0) {
+            throw new InvalidArrayException("array is incorrect");
+        }
         int[] array = intArray.getArray();
         boolean changed = false;
         do {
@@ -25,6 +29,9 @@ public class SortArrayImpl implements SortArray {
 
     @Override
     public void selectionSort(IntArray intArray) {
+        if (intArray == null || intArray.getSize() == 0) {
+            throw new InvalidArrayException("array is incorrect");
+        }
         int[] array = intArray.getArray();
         for (int i = 0; i < array.length; i++) {
             int minValue = array[i];

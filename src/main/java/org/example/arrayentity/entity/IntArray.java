@@ -2,6 +2,7 @@ package org.example.arrayentity.entity;
 
 import org.example.arrayentity.exception.InvalidArrayException;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class IntArray {
@@ -24,6 +25,13 @@ public class IntArray {
     }
 
     public void setArray(int[] array) {
-        this.array = array;
+        this.array = Arrays.copyOf(array, array.length);
+    }
+
+    @Override
+    public String toString() {
+        return "IntArray{" +
+                "array=" + Arrays.toString(array) +
+                '}';
     }
 }
