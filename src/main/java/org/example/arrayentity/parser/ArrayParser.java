@@ -1,5 +1,5 @@
 package org.example.arrayentity.parser;
 
-public interface Parser {
+public interface ArrayParser {
     int[] parse(String data);
 }

@@ -5,10 +5,10 @@ import org.example.arrayentity.exception.InvalidPathException;
 import org.example.arrayentity.exception.InvalidStringException;
 import org.example.arrayentity.factory.ArrayFactory;
 import org.example.arrayentity.factory.IntArrayFactory;
-import org.example.arrayentity.parser.Parser;
-import org.example.arrayentity.parser.impl.ParserImpl;
-import org.example.arrayentity.reader.FileReader;
-import org.example.arrayentity.reader.impl.FileReaderImpl;
+import org.example.arrayentity.parser.ArrayParser;
+import org.example.arrayentity.parser.impl.ArrayParserImpl;
+import org.example.arrayentity.reader.ArrayFileReader;
+import org.example.arrayentity.reader.impl.ArrayFileReaderImpl;
 import org.example.arrayentity.service.ArraySumService;
 import org.example.arrayentity.service.AverageValueService;
 import org.example.arrayentity.service.ExtremumService;
@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -34,24 +33,24 @@ public class App {
 
     public static void main(String[] args) {
         ArrayFactory arrayFactory = new IntArrayFactory();
-        FileReader fileReader = new FileReaderImpl();
+        ArrayFileReader arrayFileReader = new ArrayFileReaderImpl();
         ArraySumService arraySumService = new ArraySumServiceImpl();
         AverageValueService averageValueService = new AverageValueServiceImpl();
         ExtremumService extremumService = new ExtremumServiceImpl();
         SortArrayService sortArrayService = new SortArrayServiceImpl();
         List<String> data = null;
         try {
-            data = fileReader.read(path, StandardCharsets.UTF_8);
+            data = arrayFileReader.read(path);
         } catch (InvalidPathException | IOException e) {
             logger.warn("filepath {} is incorrect or empty!", path, e);
             return;
         }
         logger.info("read lines: {}", data.size());
-        Parser parser = new ParserImpl();
+        ArrayParser arrayParser = new ArrayParserImpl();
         int parsedLines = 0;
         for (int i = 0; i < data.size(); i++) {
             try {
-                IntArray array = arrayFactory.initializeArray(parser.parse(data.get(i)));
+                IntArray array = arrayFactory.initializeArray(arrayParser.parse(data.get(i)));
                 System.out.println(array);
                 System.out.println("array sum: " + arraySumService.calculateSum(array).getAsLong());
                 System.out.println("array averageValue: " + averageValueService.calculateAverageValue(array).getAsDouble());
@@ -59,7 +58,7 @@ public class App {
                 System.out.println("array maxValue: " + extremumService.findMaxValue(array).getAsInt());
                 sortArrayService.bubbleSort(array);
                 System.out.println("array bubble sort: " + array);
-                array = arrayFactory.initializeArray(parser.parse(data.get(i)));
+                array = arrayFactory.initializeArray(arrayParser.parse(data.get(i)));
                 sortArrayService.selectionSort(array);
                 System.out.println("array selection sort: " + array);
                 System.out.println();

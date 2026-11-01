@@ -1,20 +1,33 @@
 package org.example.arrayentity.warehouse;
 
-import org.example.arrayentity.entity.IntArray;
+import org.example.arrayentity.arraystatistics.ArrayStatistics;
 
-import java.util.OptionalDouble;
-import java.util.OptionalInt;
-import java.util.OptionalLong;
+import java.util.HashMap;
+import java.util.Map;
 
-public interface Warehouse {
+public class Warehouse {
 
-    void refreshAllValues(IntArray intArray);
+    private static Warehouse reference;
 
-    OptionalDouble getAverage();
+    private Map<Integer, ArrayStatistics> map = new HashMap<Integer, ArrayStatistics>();
 
-    OptionalLong getSum();
+    private Warehouse() {
+    }
 
-    OptionalInt getMin();
+    public static Warehouse getReference() {
+        if (reference == null) {
+            reference = new Warehouse();
+            return reference;
+        }
+        return reference;
+    }
 
-    OptionalInt getMax();
+    public ArrayStatistics getArrayStatisticsById(int id) {
+        return map.get(id);
+    }
+
+    public void addArrayStatistics(Integer id,ArrayStatistics arrayStatistics){
+        map.put(id,arrayStatistics);
+    }
+
 }

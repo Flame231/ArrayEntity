@@ -13,16 +13,19 @@ import java.util.List;
 
 public class ArrayRepositoryImpl implements ArrayRepository {
 
+    private static ArrayRepository refference;
+
     private List<IntArray> list = new ArrayList<>();
 
-    @Override
-    public IntArray findById(int id) {
-        for (IntArray array : list) {
-            if (array.getId() == id) {
-                return array;
-            }
+    private ArrayRepositoryImpl() {
+    }
+
+    public static ArrayRepository getArrayRepository() {
+        if (refference == null) {
+            refference = new ArrayRepositoryImpl();
+            return refference;
         }
-        return null;
+        return refference;
     }
 
     @Override
@@ -33,24 +36,12 @@ public class ArrayRepositoryImpl implements ArrayRepository {
     }
 
     @Override
-    public void deleteArrayById(int id) {
+    public void deleteArray(int id) {
         for (IntArray array : list) {
             if (array.getId() == id) {
                 list.remove(array);
             }
         }
         throw new IdNotFoundException("Array id not found!");
-    }
-
-    @Override
-    public List<IntArray> findAllWhereSumIsBiggerThen(long sum) {
-        ArraySumService arraySumService = new ArraySumServiceImpl();
-        List<IntArray> arrayList = new ArrayList<>();
-        for (IntArray array : list) {
-            if (sum < arraySumService.calculateSum(array).getAsLong()) {
-                arrayList.add(array);
-            }
-        }
-        return arrayList;
     }
 }

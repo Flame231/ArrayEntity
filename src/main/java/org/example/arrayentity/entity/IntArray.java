@@ -1,21 +1,18 @@
 package org.example.arrayentity.entity;
 
 import org.example.arrayentity.exception.InvalidArrayException;
-import org.example.arrayentity.warehouse.Warehouse;
-import org.example.arrayentity.warehouse.impl.WarehouseImpl;
+import org.example.arrayentity.observer.Observer;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Objects;
 
 public class IntArray {
 
-    private Warehouse warehouse = new WarehouseImpl();
     private int id;
-
     private int[] array;
+    private Observer observer;
 
-    public void initializeArray(int[] values) {
+    public IntArray(int[] values) {
         if (values == null) {
             throw new InvalidArrayException("values are invalid!");
         }
@@ -48,10 +45,15 @@ public class IntArray {
 
     public void setArray(int[] array) {
         this.array = Arrays.copyOf(array, array.length);
+        observer.update(this);
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(array);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("IntArray { array= ").append(Arrays.toString(array)).append(" }");
+        return stringBuilder.toString();
     }
+
+
 }

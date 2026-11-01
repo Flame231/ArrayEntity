@@ -12,12 +12,12 @@ public class ArrayValidatorImpl implements ArrayValidator {
     private static final Pattern pattern = Pattern.compile(DELIMITED_NUMBERS_PATTERN);
 
     @Override
-    public boolean validate(String data) {
-        if (data == null || data.isBlank()) {
+    public boolean validate(String line) {
+        if (line == null || line.isBlank()) {
             return false;
         }
-        data = data.replaceAll(DASH_SEQUENCE_PATTERN, "-").trim();
-        Matcher matcher = pattern.matcher(data);
+        line = line.replaceAll(DASH_SEQUENCE_PATTERN, "-").trim();
+        Matcher matcher = pattern.matcher(line);
         return matcher.matches();
     }
 }
