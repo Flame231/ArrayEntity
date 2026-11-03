@@ -5,10 +5,14 @@ import org.example.arrayentity.specification.ArraySpecification;
 
 public class ArrayIdSpecificationImpl implements ArraySpecification {
 
-    private IntArray intArray;
+    private final int id;
+
+    public ArrayIdSpecificationImpl(int id) {
+        this.id = id;
+    }
 
     @Override
     public boolean matches(IntArray intArray) {
-        return this.intArray.getId() == intArray.getId();
+        return intArray.getId() == id;
     }
 }

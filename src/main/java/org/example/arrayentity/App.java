@@ -1,5 +1,6 @@
 package org.example.arrayentity;
 
+import org.example.arrayentity.arraystatistics.ArrayStatistics;
 import org.example.arrayentity.entity.IntArray;
 import org.example.arrayentity.exception.InvalidPathException;
 import org.example.arrayentity.exception.InvalidStringException;
@@ -9,6 +10,7 @@ import org.example.arrayentity.parser.ArrayParser;
 import org.example.arrayentity.parser.impl.ArrayParserImpl;
 import org.example.arrayentity.reader.ArrayFileReader;
 import org.example.arrayentity.reader.impl.ArrayFileReaderImpl;
+import org.example.arrayentity.repository.ArrayRepository;
 import org.example.arrayentity.service.ArraySumService;
 import org.example.arrayentity.service.AverageValueService;
 import org.example.arrayentity.service.ExtremumService;
@@ -17,6 +19,7 @@ import org.example.arrayentity.service.impl.ArraySumServiceImpl;
 import org.example.arrayentity.service.impl.AverageValueServiceImpl;
 import org.example.arrayentity.service.impl.ExtremumServiceImpl;
 import org.example.arrayentity.service.impl.SortArrayServiceImpl;
+import org.example.arrayentity.warehouse.Warehouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +41,8 @@ public class App {
         AverageValueService averageValueService = new AverageValueServiceImpl();
         ExtremumService extremumService = new ExtremumServiceImpl();
         SortArrayService sortArrayService = new SortArrayServiceImpl();
+        Warehouse warehouse = Warehouse.getReference();
+        ArrayRepository arrayRepository = ArrayRepository.getReference();
         List<String> data = null;
         try {
             data = arrayFileReader.read(path);
@@ -50,15 +55,16 @@ public class App {
         int parsedLines = 0;
         for (int i = 0; i < data.size(); i++) {
             try {
-                IntArray array = arrayFactory.initializeArray(arrayParser.parse(data.get(i)));
+                IntArray array = arrayFactory.createArray(arrayParser.parse(data.get(i)));
                 System.out.println(array);
-                System.out.println("array sum: " + arraySumService.calculateSum(array).getAsLong());
-                System.out.println("array averageValue: " + averageValueService.calculateAverageValue(array).getAsDouble());
-                System.out.println("array minValue: " + extremumService.findMinValue(array).getAsInt());
-                System.out.println("array maxValue: " + extremumService.findMaxValue(array).getAsInt());
+                warehouse.addArrayStatistics(array.getId(), new ArrayStatistics(averageValueService.calculateAverageValue(array), arraySumService.calculateSum(array), extremumService.findMinValue(array), extremumService.findMaxValue(array)));
+                System.out.println("array sum: " + );
+                System.out.println("array averageValue: " +);
+                System.out.println("array minValue: " +);
+                System.out.println("array maxValue: " +);
                 sortArrayService.bubbleSort(array);
                 System.out.println("array bubble sort: " + array);
-                array = arrayFactory.initializeArray(arrayParser.parse(data.get(i)));
+                array = arrayFactory.createArray(arrayParser.parse(data.get(i)));
                 sortArrayService.selectionSort(array);
                 System.out.println("array selection sort: " + array);
                 System.out.println();
@@ -68,6 +74,7 @@ public class App {
                 logger.warn("Skipping line {}: {}", i + 1, e.getMessage());
                 continue;
             }
+            arra
         }
         logger.info("parsed lines: {}", parsedLines);
     }
