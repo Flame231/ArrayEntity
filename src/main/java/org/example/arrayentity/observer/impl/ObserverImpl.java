@@ -1,7 +1,7 @@
 package org.example.arrayentity.observer.impl;
 
 import org.example.arrayentity.arraystatistics.ArrayStatistics;
-import org.example.arrayentity.entity.IntArray;
+import org.example.arrayentity.entity.impl.IntArray;
 import org.example.arrayentity.observer.Observer;
 import org.example.arrayentity.service.ArraySumService;
 import org.example.arrayentity.service.AverageValueService;

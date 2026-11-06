@@ -1,7 +1,7 @@
 package org.example.arrayentity.arraycomparator.impl;
 
 import org.example.arrayentity.arraycomparator.ArrayComparator;
-import org.example.arrayentity.entity.IntArray;
+import org.example.arrayentity.entity.impl.IntArray;
 
 public class ArrayComparatorBySize implements ArrayComparator {
 

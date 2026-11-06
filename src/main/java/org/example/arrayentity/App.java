@@ -1,7 +1,7 @@
 package org.example.arrayentity;
 
 import org.example.arrayentity.arraystatistics.ArrayStatistics;
-import org.example.arrayentity.entity.IntArray;
+import org.example.arrayentity.entity.impl.IntArray;
 import org.example.arrayentity.exception.InvalidPathException;
 import org.example.arrayentity.exception.InvalidStringException;
 import org.example.arrayentity.factory.ArrayFactory;
@@ -10,7 +10,7 @@ import org.example.arrayentity.parser.ArrayParser;
 import org.example.arrayentity.parser.impl.ArrayParserImpl;
 import org.example.arrayentity.reader.ArrayFileReader;
 import org.example.arrayentity.reader.impl.ArrayFileReaderImpl;
-import org.example.arrayentity.repository.ArrayRepository;
+import org.example.arrayentity.repository.impl.ArrayRepositoryImpl;
 import org.example.arrayentity.service.ArraySumService;
 import org.example.arrayentity.service.AverageValueService;
 import org.example.arrayentity.service.ExtremumService;
@@ -42,7 +42,7 @@ public class App {
         ExtremumService extremumService = new ExtremumServiceImpl();
         SortArrayService sortArrayService = new SortArrayServiceImpl();
         Warehouse warehouse = Warehouse.getReference();
-        ArrayRepository arrayRepository = ArrayRepository.getReference();
+        ArrayRepositoryImpl arrayRepositoryImpl = ArrayRepositoryImpl.getReference();
         List<String> data = null;
         try {
             data = arrayFileReader.read(path);

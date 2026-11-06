@@ -1,6 +1,6 @@
 package org.example.arrayentity.specification.impl;
 
-import org.example.arrayentity.entity.IntArray;
+import org.example.arrayentity.entity.impl.IntArray;
 import org.example.arrayentity.specification.ArraySpecification;
 import org.example.arrayentity.warehouse.Warehouse;
 

@@ -1,6 +1,6 @@
 package org.example.arrayentity.service.impl;
 
-import org.example.arrayentity.entity.IntArray;
+import org.example.arrayentity.entity.impl.IntArray;
 import org.example.arrayentity.exception.InvalidArrayException;
 import org.example.arrayentity.service.ExtremumService;
 

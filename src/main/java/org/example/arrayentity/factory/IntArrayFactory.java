@@ -1,6 +1,6 @@
 package org.example.arrayentity.factory;
 
-import org.example.arrayentity.entity.IntArray;
+import org.example.arrayentity.entity.impl.IntArray;
 
 public class IntArrayFactory extends ArrayFactory {
     @Override

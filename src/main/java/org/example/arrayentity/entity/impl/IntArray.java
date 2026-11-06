@@ -1,29 +1,30 @@
-package org.example.arrayentity.entity;
+package org.example.arrayentity.entity.impl;
 
+import org.example.arrayentity.entity.Observable;
 import org.example.arrayentity.exception.InvalidArrayException;
 import org.example.arrayentity.observer.Observer;
-import org.example.arrayentity.observer.impl.ObserverImpl;
+import org.example.arrayentity.util.Util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
-public class IntArray {
+public class IntArray implements Observable {
 
-    private static int nextId = 1;
 
     private int id;
     private int[] array;
-    private Observer observer;
+    private final List<Observer> observers = new ArrayList<>();
 
     public IntArray(int[] values) {
         if (values == null || values.length == 0) {
             throw new InvalidArrayException("values are invalid!");
         }
         this.array = Arrays.copyOf(values, values.length);
-        observer = new ObserverImpl();
-        id = nextId;
-        nextId++;
-        observer.update(this);
+        id = Util.id();
+        Util.nextId();
+        notifyAllObservers();
     }
 
     public int getId() {
@@ -39,7 +40,7 @@ public class IntArray {
             throw new InvalidArrayException("values are invalid!");
         }
         this.array = Arrays.copyOf(values, values.length);
-        observer.update(this);
+        notifyAllObservers();
     }
 
     public int[] getArray() {
@@ -65,4 +66,21 @@ public class IntArray {
         return stringBuilder.toString();
     }
 
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void remove(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyAllObservers() {
+        for (Observer observer : observers) {
+            observer.update(this);
+        }
+    }
 }

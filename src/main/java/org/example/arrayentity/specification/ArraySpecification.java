@@ -1,6 +1,6 @@
 package org.example.arrayentity.specification;
 
-import org.example.arrayentity.entity.IntArray;
+import org.example.arrayentity.entity.impl.IntArray;
 
 public interface ArraySpecification {
 

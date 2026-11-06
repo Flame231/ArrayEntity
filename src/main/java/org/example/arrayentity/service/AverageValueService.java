@@ -1,6 +1,6 @@
 package org.example.arrayentity.service;
 
-import org.example.arrayentity.entity.IntArray;
+import org.example.arrayentity.entity.impl.IntArray;
 
 import java.util.OptionalDouble;
 
