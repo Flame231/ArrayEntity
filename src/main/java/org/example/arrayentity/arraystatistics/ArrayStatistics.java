@@ -5,17 +5,22 @@ import java.util.OptionalInt;
 import java.util.OptionalLong;
 
 public class ArrayStatistics {
-
+    private int id;
     private OptionalDouble average;
     private OptionalLong sum;
     private OptionalInt min;
     private OptionalInt max;
 
-    public ArrayStatistics(OptionalDouble average, OptionalLong sum, OptionalInt min, OptionalInt max) {
+    public ArrayStatistics(int id, OptionalDouble average, OptionalLong sum, OptionalInt min, OptionalInt max) {
+        this.id = id;
         this.average = average;
         this.sum = sum;
         this.min = min;
         this.max = max;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public OptionalDouble getAverage() {
@@ -48,5 +53,16 @@ public class ArrayStatistics {
 
     public void setMax(OptionalInt max) {
         this.max = max;
+    }
+
+    @Override
+    public String toString() {
+        return "ArrayStatistics{" +
+                "id=" + id +
+                ", average=" + average +
+                ", sum=" + sum +
+                ", min=" + min +
+                ", max=" + max +
+                '}';
     }
 }

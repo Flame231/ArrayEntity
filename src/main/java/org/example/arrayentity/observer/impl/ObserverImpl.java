@@ -27,6 +27,6 @@ public class ObserverImpl implements Observer {
         OptionalDouble averageValue = averageValueService.calculateAverageValue(intArray);
         OptionalInt max = extremumService.findMaxValue(intArray);
         OptionalInt min = extremumService.findMinValue(intArray);
-        Warehouse.getReference().addArrayStatistics(intArray.getId(), new ArrayStatistics(averageValue, sum, min, max));
+        Warehouse.getReference().updateArrayStatistics(new ArrayStatistics(intArray.getId(), averageValue, sum, min, max));
     }
 }

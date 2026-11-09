@@ -29,6 +29,7 @@ public class ArrayRepositoryImpl implements ArrayRepository {
         return reference;
     }
 
+    @Override
     public void addArray(IntArray intArray) {
         if (intArray == null || intArray.getSize() == 0) {
             throw new InvalidArrayException("Invalid array exception!");
@@ -36,6 +37,7 @@ public class ArrayRepositoryImpl implements ArrayRepository {
         arrays.add(intArray);
     }
 
+    @Override
     public void deleteArray(int id) {
         for (IntArray array : arrays) {
             if (array.getId() == id) {
@@ -46,29 +48,21 @@ public class ArrayRepositoryImpl implements ArrayRepository {
         throw new ArrayNotFoundException("Array id not found!");
     }
 
-    public IntArray findBySpecification(ArraySpecification specification) {
+    @Override
+    public List<IntArray> findBySpecification(ArraySpecification specification) {
+        List<IntArray> list = new ArrayList<>();
         for (IntArray array : arrays) {
             if (specification.matches(array)) {
-                return array;
+                list.add(array);
             }
         }
-        throw new ArrayNotFoundException(String.format("Array with id '%s' not found!", id));
+        if (list.isEmpty()) {
+            throw new ArrayNotFoundException("Arrays are not found!");
+        }
+        return list;
     }
 
-    public List<IntArray> findWhereSumIs(long sum) {
-        ArraySpecification arraySumSpecification = new ArraySumSpecificationImpl(sum);
-        List<IntArray> arrayList = new ArrayList<>();
-        for (IntArray array : arrays) {
-            if (arraySumSpecification.matches(array)) {
-                arrayList.add(array);
-            }
-        }
-        if (arrayList.isEmpty()) {
-            throw new ArrayNotFoundException(String.format("Array with sum '%s' not found!", sum));
-        }
-        return arrayList;
-    }
-
+    @Override
     public void sort(ArrayComparator arrayComparator) {
         arrays.sort(arrayComparator);
     }
