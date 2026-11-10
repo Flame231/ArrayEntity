@@ -2,14 +2,14 @@ package org.example.arrayentity.warehouse;
 
 import org.example.arrayentity.arraystatistics.ArrayStatistics;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Warehouse {
 
     private static Warehouse reference;
 
-    private final List<ArrayStatistics> list = new ArrayList<>();
+    private final Map<Integer, ArrayStatistics> map = new HashMap<>();
 
     private Warehouse() {
     }
@@ -22,19 +22,11 @@ public class Warehouse {
         return reference;
     }
 
-    public ArrayStatistics getArrayStatisticsById(int id) {
-        return list.get(id);
+    public void putArrayStatistics(Integer id, ArrayStatistics arrayStatistics) {
+        map.put(id, arrayStatistics);
     }
 
-    public void addArrayStatistics(ArrayStatistics arrayStatistics) {
-        list.add(arrayStatistics);
-    }
-
-    public void updateArrayStatistics(ArrayStatistics arrayStatistics) {
-        list.set(arrayStatistics.getId(), arrayStatistics);
-    }
-
-    public List<ArrayStatistics> getList() {
-        return list;
+    public ArrayStatistics getArrayStatistics(Integer id) {
+        return map.get(id);
     }
 }

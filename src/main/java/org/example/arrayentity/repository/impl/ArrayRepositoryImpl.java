@@ -4,6 +4,7 @@ import org.example.arrayentity.arraycomparator.ArrayComparator;
 import org.example.arrayentity.entity.impl.IntArray;
 import org.example.arrayentity.exception.ArrayNotFoundException;
 import org.example.arrayentity.exception.InvalidArrayException;
+import org.example.arrayentity.observer.impl.ArrayObserverImpl;
 import org.example.arrayentity.repository.ArrayRepository;
 import org.example.arrayentity.specification.ArraySpecification;
 import org.example.arrayentity.specification.impl.ArrayIdSpecificationImpl;
@@ -31,10 +32,11 @@ public class ArrayRepositoryImpl implements ArrayRepository {
 
     @Override
     public void addArray(IntArray intArray) {
-        if (intArray == null || intArray.getSize() == 0) {
+        if (intArray == null || intArray.getSize() == 0 || arrays.contains(intArray)) {
             throw new InvalidArrayException("Invalid array exception!");
         }
         arrays.add(intArray);
+        intArray.attach(new ArrayObserverImpl());
     }
 
     @Override
@@ -42,6 +44,7 @@ public class ArrayRepositoryImpl implements ArrayRepository {
         for (IntArray array : arrays) {
             if (array.getId() == id) {
                 arrays.remove(array);
+                array.detach();
                 return;
             }
         }
@@ -55,9 +58,6 @@ public class ArrayRepositoryImpl implements ArrayRepository {
             if (specification.matches(array)) {
                 list.add(array);
             }
-        }
-        if (list.isEmpty()) {
-            throw new ArrayNotFoundException("Arrays are not found!");
         }
         return list;
     }

@@ -2,29 +2,27 @@ package org.example.arrayentity.entity.impl;
 
 import org.example.arrayentity.entity.Observable;
 import org.example.arrayentity.exception.InvalidArrayException;
-import org.example.arrayentity.observer.Observer;
-import org.example.arrayentity.util.Util;
+import org.example.arrayentity.observer.ArrayObserver;
+import org.example.arrayentity.observer.impl.ArrayObserverImpl;
+import org.example.arrayentity.util.ArrayIdGenerator;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class IntArray implements Observable {
 
 
-    private int id;
+    private final int id;
     private int[] array;
-    private final List<Observer> observers = new ArrayList<>();
+    private ArrayObserver arrayObserver = new ArrayObserverImpl();
 
     public IntArray(int[] values) {
         if (values == null || values.length == 0) {
             throw new InvalidArrayException("values are invalid!");
         }
         this.array = Arrays.copyOf(values, values.length);
-        id = Util.id();
-        Util.nextId();
-        notifyAllObservers();
+        id = ArrayIdGenerator.nextId();
+        notifyObserver();
     }
 
     public int getId() {
@@ -40,7 +38,7 @@ public class IntArray implements Observable {
             throw new InvalidArrayException("values are invalid!");
         }
         this.array = Arrays.copyOf(values, values.length);
-        notifyAllObservers();
+        notifyObserver();
     }
 
     public int[] getArray() {
@@ -66,21 +64,21 @@ public class IntArray implements Observable {
         return stringBuilder.toString();
     }
 
-
     @Override
-    public void addObserver(Observer observer) {
-        observers.add(observer);
+    public void attach(ArrayObserver arrayObserver) {
+        this.arrayObserver = arrayObserver;
+        notifyObserver();
     }
 
     @Override
-    public void remove(Observer observer) {
-        observers.remove(observer);
+    public void detach() {
+        this.arrayObserver = null;
     }
 
     @Override
-    public void notifyAllObservers() {
-        for (Observer observer : observers) {
-            observer.update(this);
+    public void notifyObserver() {
+        if (arrayObserver != null) {
+            arrayObserver.update(this);
         }
     }
 }

@@ -14,8 +14,6 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class ArrayFileReaderImpl implements ArrayFileReader {
-    private static final Logger logger = LoggerFactory.getLogger(ArrayFileReaderImpl.class);
-
     @Override
     public List<String> read(String path) throws IOException {
         if (path == null || path.isBlank()) {

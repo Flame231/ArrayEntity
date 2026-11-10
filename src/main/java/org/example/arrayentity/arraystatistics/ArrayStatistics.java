@@ -1,68 +1,47 @@
 package org.example.arrayentity.arraystatistics;
 
-import java.util.OptionalDouble;
-import java.util.OptionalInt;
-import java.util.OptionalLong;
-
 public class ArrayStatistics {
-    private int id;
-    private OptionalDouble average;
-    private OptionalLong sum;
-    private OptionalInt min;
-    private OptionalInt max;
+    private final double average;
+    private final long sum;
+    private final int min;
+    private final int max;
+    private final int size;
 
-    public ArrayStatistics(int id, OptionalDouble average, OptionalLong sum, OptionalInt min, OptionalInt max) {
-        this.id = id;
+    public ArrayStatistics(double average, long sum, int min, int max, int size) {
         this.average = average;
         this.sum = sum;
         this.min = min;
         this.max = max;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public OptionalDouble getAverage() {
-        return average;
-    }
-
-    public OptionalLong getSum() {
-        return sum;
-    }
-
-    public OptionalInt getMin() {
-        return min;
-    }
-
-    public OptionalInt getMax() {
-        return max;
-    }
-
-    public void setAverage(OptionalDouble average) {
-        this.average = average;
-    }
-
-    public void setSum(OptionalLong sum) {
-        this.sum = sum;
-    }
-
-    public void setMin(OptionalInt min) {
-        this.min = min;
-    }
-
-    public void setMax(OptionalInt max) {
-        this.max = max;
+        this.size = size;
     }
 
     @Override
     public String toString() {
         return "ArrayStatistics{" +
-                "id=" + id +
                 ", average=" + average +
                 ", sum=" + sum +
                 ", min=" + min +
                 ", max=" + max +
                 '}';
+    }
+
+    public double getAverage() {
+        return average;
+    }
+
+    public long getSum() {
+        return sum;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public int getSize() {
+        return size;
     }
 }

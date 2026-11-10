@@ -1,35 +1,23 @@
 package org.example.arrayentity;
 
-import org.example.arrayentity.arraystatistics.ArrayStatistics;
 import org.example.arrayentity.entity.impl.IntArray;
 import org.example.arrayentity.exception.InvalidPathException;
 import org.example.arrayentity.exception.InvalidStringException;
 import org.example.arrayentity.factory.ArrayFactory;
 import org.example.arrayentity.factory.IntArrayFactory;
-import org.example.arrayentity.observer.Observer;
-import org.example.arrayentity.observer.impl.ObserverImpl;
 import org.example.arrayentity.parser.ArrayParser;
 import org.example.arrayentity.parser.impl.ArrayParserImpl;
 import org.example.arrayentity.reader.ArrayFileReader;
 import org.example.arrayentity.reader.impl.ArrayFileReaderImpl;
 import org.example.arrayentity.repository.impl.ArrayRepositoryImpl;
-import org.example.arrayentity.service.ArraySumService;
-import org.example.arrayentity.service.AverageValueService;
-import org.example.arrayentity.service.ExtremumService;
 import org.example.arrayentity.service.SortArrayService;
-import org.example.arrayentity.service.impl.ArraySumServiceImpl;
-import org.example.arrayentity.service.impl.AverageValueServiceImpl;
-import org.example.arrayentity.service.impl.ExtremumServiceImpl;
 import org.example.arrayentity.service.impl.SortArrayServiceImpl;
-import org.example.arrayentity.specification.ArraySpecification;
-import org.example.arrayentity.specification.impl.ArrayIdSpecificationImpl;
 import org.example.arrayentity.specification.impl.ArraySumSpecificationImpl;
-import org.example.arrayentity.warehouse.Warehouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
 
 /**
  * Hello world!
@@ -42,11 +30,7 @@ public class App {
     public static void main(String[] args) {
         ArrayFactory arrayFactory = new IntArrayFactory();
         ArrayFileReader arrayFileReader = new ArrayFileReaderImpl();
-        ArraySumService arraySumService = new ArraySumServiceImpl();
-        AverageValueService averageValueService = new AverageValueServiceImpl();
-        ExtremumService extremumService = new ExtremumServiceImpl();
         SortArrayService sortArrayService = new SortArrayServiceImpl();
-        Warehouse warehouse = Warehouse.getReference();
         ArrayRepositoryImpl arrayRepositoryImpl = ArrayRepositoryImpl.getReference();
         List<String> data = null;
         try {
@@ -62,18 +46,6 @@ public class App {
             try {
                 IntArray array = arrayFactory.createArray(arrayParser.parse(data.get(i)));
                 System.out.println(array);
-                OptionalDouble averageValue = averageValueService.calculateAverageValue(array);
-                OptionalLong sum = arraySumService.calculateSum(array);
-                OptionalInt minValue = extremumService.findMinValue(array);
-                OptionalInt maxValue = extremumService.findMaxValue(array);
-                ArrayStatistics arrayStatistics = new ArrayStatistics(array.getId(), averageValue, sum, minValue, maxValue);
-                Observer observer = new ObserverImpl();
-                array.addObserver(observer);
-                warehouse.addArrayStatistics(arrayStatistics);
-                System.out.println("array averageValue: " + averageValue);
-                System.out.println("array sum: " + sum);
-                System.out.println("array minValue: " + minValue);
-                System.out.println("array maxValue: " + maxValue);
                 sortArrayService.bubbleSort(array);
                 System.out.println("array bubble sort: " + array);
                 sortArrayService.selectionSort(array);

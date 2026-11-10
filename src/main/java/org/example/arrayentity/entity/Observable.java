@@ -1,12 +1,12 @@
 package org.example.arrayentity.entity;
 
-import org.example.arrayentity.observer.Observer;
+import org.example.arrayentity.observer.ArrayObserver;
 
 public interface Observable {
 
-    void addObserver(Observer observer);
+    void attach(ArrayObserver arrayObserver);
 
-    void remove(Observer observer);
+    void detach();
 
-    void notifyAllObservers();
+    void notifyObserver();
 }

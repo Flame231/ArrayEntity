@@ -5,7 +5,6 @@ import org.example.arrayentity.specification.ArraySpecification;
 import org.example.arrayentity.warehouse.Warehouse;
 
 import java.util.function.BiPredicate;
-import java.util.function.Predicate;
 
 public class ArraySumSpecificationImpl implements ArraySpecification {
 
@@ -19,6 +18,6 @@ public class ArraySumSpecificationImpl implements ArraySpecification {
 
     @Override
     public boolean matches(IntArray intArray) {
-        return predicate.test(Warehouse.getReference().getList().get(intArray.getId()).getSum().orElseThrow(), sum);
+        return predicate.test(Warehouse.getReference().getArrayStatistics((intArray.getId())).getSum(), sum);
     }
 }
